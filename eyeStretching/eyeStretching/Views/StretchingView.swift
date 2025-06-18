@@ -57,8 +57,10 @@ struct StretchingView: View {
                         
                         // 종료 버튼
                         Button(action: {
-                            animationEngine.stopAnimation()
-                            manager.returnToMenu()
+                            Task { @MainActor in
+                                animationEngine.stopAnimation()
+                                manager.returnToMenu()
+                            }
                         }) {
                             Image(systemName: "xmark")
                                 .font(.title3)
@@ -77,7 +79,7 @@ struct StretchingView: View {
                 VStack {
                     Spacer()
                     
-                    ProgressView(value: min(Double(currentCycle) + animationEngine.progress, Double(totalCycles)), total: Double(totalCycles))
+                    ProgressView(value: Double(currentCycle) + animationEngine.progress, total: Double(totalCycles))
                         .progressViewStyle(LinearProgressViewStyle(tint: .mint))
                         .scaleEffect(x: 1, y: 2)
                         .padding(.horizontal, 40)
