@@ -28,18 +28,18 @@ class EyeStretchingManager: ObservableObject {
         case figure8 = "8자형"
         case circle = "원형" 
         case vertical = "상하형"
-        case horizontal = "좌우형"
+        case diamond = "마름모형"
         
         var description: String {
             switch self {
             case .figure8:
-                return "8자를 그리며 눈을 크게 움직여보세요"
+                return "세로 8자를 그리며 눈을 크게 움직여보세요"
             case .circle:
                 return "큰 원을 그리며 눈을 움직여보세요"
             case .vertical:
                 return "위아래로 눈을 크게 움직여보세요"
-            case .horizontal:
-                return "좌우로 눈을 크게 움직여보세요"
+            case .diamond:
+                return "세로 마름모를 그리며 눈을 움직여보세요"
             }
         }
         
@@ -51,8 +51,8 @@ class EyeStretchingManager: ObservableObject {
                 return "circle"
             case .vertical:
                 return "arrow.up.arrow.down"
-            case .horizontal:
-                return "arrow.left.arrow.right"
+            case .diamond:
+                return "diamond"
             }
         }
     }

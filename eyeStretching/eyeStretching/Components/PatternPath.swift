@@ -37,8 +37,8 @@ struct PatternPath: View {
                     style: StrokeStyle(lineWidth: 3, dash: [10, 5])
                 )
                 .frame(
-                    width: (geometry.size.width - 80) * 0.8,  // 더 큰 8자
-                    height: (geometry.size.height - 160) * 0.6
+                    width: (geometry.size.width - 80) * 0.5,  // 세로 8자 (너비 감소)
+                    height: (geometry.size.height - 160) * 0.9  // 세로 8자 (높이 증가)
                 )
                 .position(
                     x: geometry.size.width / 2,
@@ -60,15 +60,15 @@ struct PatternPath: View {
                     y: geometry.size.height / 2
                 )
                 
-        case .horizontal:
-            HorizontalPath()
+        case .diamond:
+            DiamondPath()
                 .stroke(
                     Color.mint.opacity(0.25),
                     style: StrokeStyle(lineWidth: 3, dash: [10, 5])
                 )
                 .frame(
-                    width: geometry.size.width - 80,  // 전체 너비 활용
-                    height: 40  // 선의 두께
+                    width: (geometry.size.width - 80) * 0.6,  // 마름모 너비
+                    height: (geometry.size.height - 160) * 0.9  // 마름모 높이 (세로로 길게)
                 )
                 .position(
                     x: geometry.size.width / 2,
@@ -87,13 +87,13 @@ struct CirclePath: Shape {
     }
 }
 
-// MARK: - Figure 8 Path Shape
+// MARK: - Figure 8 Path Shape (세로 방향)
 struct Figure8Path: Shape {
     func path(in rect: CGRect) -> Path {
         Path { path in
             let center = CGPoint(x: rect.midX, y: rect.midY)
-            let radiusX = rect.width * 0.4  // 더 큰 수평 반경
-            let radiusY = rect.height * 0.4  // 더 큰 수직 반경
+            let radiusX = rect.width * 0.25  // 수평 반경 감소 (세로 8자)
+            let radiusY = rect.height * 0.45  // 수직 반경 대폭 증가
             
             var isFirst = true
             
@@ -101,8 +101,9 @@ struct Figure8Path: Shape {
                 let t = Double(i) / 150.0 * Double.pi * 2
                 let denominator = 1 + pow(sin(t), 2)
                 
-                let x = center.x + CGFloat((Double(radiusX) * cos(t)) / denominator)
-                let y = center.y + CGFloat((Double(radiusY) * sin(t) * cos(t)) / denominator)
+                // x와 y를 바꿔서 세로 8자 형태로 만듦
+                let x = center.x + CGFloat((Double(radiusX) * sin(t) * cos(t)) / denominator)
+                let y = center.y + CGFloat((Double(radiusY) * cos(t)) / denominator)
                 
                 let point = CGPoint(x: x, y: y)
                 
@@ -150,33 +151,27 @@ struct VerticalPath: Shape {
     }
 }
 
-// MARK: - Horizontal Path Shape (좌우 패턴)
-struct HorizontalPath: Shape {
+// MARK: - Diamond Path Shape (세로 마름모 패턴)
+struct DiamondPath: Shape {
     func path(in rect: CGRect) -> Path {
         Path { path in
+            let centerX = rect.midX
             let centerY = rect.midY
-            let leftX = rect.minX + 20
-            let rightX = rect.maxX - 20
+            let horizontalRange = rect.width * 0.3
+            let verticalRange = rect.height * 0.45
             
-            // 부드러운 좌우 곡선 (코사인파)
-            var isFirst = true
+            // 마름모 4개 점
+            let topPoint = CGPoint(x: centerX, y: centerY - verticalRange)
+            let rightPoint = CGPoint(x: centerX + horizontalRange, y: centerY)
+            let bottomPoint = CGPoint(x: centerX, y: centerY + verticalRange)
+            let leftPoint = CGPoint(x: centerX - horizontalRange, y: centerY)
             
-            for i in 0...100 {
-                let progress = Double(i) / 100.0
-                let angle = progress * 4 * Double.pi  // 2번의 완전한 사이클
-                let amplitude = (rightX - leftX) / 2
-                let centerX = (leftX + rightX) / 2
-                
-                let x = centerX + cos(angle) * amplitude
-                let point = CGPoint(x: x, y: centerY)
-                
-                if isFirst {
-                    path.move(to: point)
-                    isFirst = false
-                } else {
-                    path.addLine(to: point)
-                }
-            }
+            // 마름모 그리기
+            path.move(to: topPoint)
+            path.addLine(to: rightPoint)
+            path.addLine(to: bottomPoint)
+            path.addLine(to: leftPoint)
+            path.closeSubpath()
         }
     }
 } 

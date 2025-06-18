@@ -43,21 +43,19 @@ struct MenuView: View {
                         color: .mint
                     )
                     
-                    StatCard(
-                        title: "현재 설정",
-                        value: manager.animationSpeed.rawValue,
-                        unit: "속도",
-                        color: manager.animationSpeed == .fast ? .orange : .blue
-                    )
-                }
-                
-                if manager.lastCompletedDate != nil {
-                    HStack {
+                    if manager.lastCompletedDate != nil {
                         StatCard(
                             title: "최근 운동",
                             value: "오늘",
                             unit: "",
                             color: .green
+                        )
+                    } else {
+                        StatCard(
+                            title: "권장 횟수",
+                            value: "3-5",
+                            unit: "회/일",
+                            color: .orange
                         )
                     }
                 }
@@ -80,53 +78,12 @@ struct MenuView: View {
             }
             .padding(.horizontal, 24)
             
-            // 패턴 안내
-            VStack(spacing: 12) {
-                Text("🎯 운동 패턴")
-                    .font(.headline)
-                    .foregroundColor(.primary)
-                
-                VStack(spacing: 6) {
-                    HStack {
-                        Text("∞")
-                            .font(.title2)
-                            .foregroundColor(.mint)
-                        Text("8자형")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        Spacer()
-                        Text("○")
-                            .font(.title2)
-                            .foregroundColor(.mint)
-                        Text("원형")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
-                    
-                    HStack {
-                        Text("↕")
-                            .font(.title2)
-                            .foregroundColor(.mint)
-                        Text("상하형")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        Spacer()
-                        Text("↔")
-                            .font(.title2)
-                            .foregroundColor(.mint)
-                        Text("좌우형")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
-                }
+            // 간단한 안내
+            Text("다양한 패턴으로 큰 눈 운동을 해보세요!")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
                 .padding(.horizontal)
-                
-                Text("총 4가지 패턴으로 큰 눈 운동을 해보세요!")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-            }
-            .padding(.horizontal)
             
             Spacer()
         }

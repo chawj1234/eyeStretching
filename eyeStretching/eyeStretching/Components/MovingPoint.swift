@@ -41,8 +41,8 @@ struct MovingPoint: View {
             return figure8Position()
         case .vertical:
             return verticalPosition()
-        case .horizontal:
-            return horizontalPosition()
+        case .diamond:
+            return diamondPosition()
         }
     }
     
@@ -61,21 +61,22 @@ struct MovingPoint: View {
         return CGPoint(x: x, y: y)
     }
     
-    // MARK: - 8자형 패턴 (더 큰 움직임)
+    // MARK: - 8자형 패턴 (세로 방향, 더 큰 움직임)
     private func figure8Position() -> CGPoint {
         let t = progress * 2 * .pi
-        let scaleX = (geometry.size.width - 80) * 0.4   // 수평 스케일 증가
-        let scaleY = (geometry.size.height - 160) * 0.3  // 수직 스케일 증가
+        let scaleX = (geometry.size.width - 80) * 0.25   // 수평 스케일 감소 (세로 8자)
+        let scaleY = (geometry.size.height - 160) * 0.45  // 수직 스케일 대폭 증가
         let centerX = geometry.size.width / 2
         let centerY = geometry.size.height / 2
         
-        // Lemniscate of Bernoulli 공식 개선
+        // 세로 8자를 위한 90도 회전된 Lemniscate of Bernoulli 공식
         let sinT = sin(t)
         let cosT = cos(t)
         let denominator = 1 + sinT * sinT
         
-        let x = centerX + (scaleX * cosT) / denominator
-        let y = centerY + (scaleY * sinT * cosT) / denominator
+        // x와 y를 바꿔서 세로 8자 형태로 만듦
+        let x = centerX + (scaleX * sinT * cosT) / denominator
+        let y = centerY + (scaleY * cosT) / denominator
         
         return CGPoint(x: x, y: y)
     }
@@ -97,20 +98,42 @@ struct MovingPoint: View {
         return CGPoint(x: centerX, y: y)
     }
     
-    // MARK: - 좌우 패턴 (큰 수평 움직임)
-    private func horizontalPosition() -> CGPoint {
-        let centerY = geometry.size.height / 2
-        let leftMargin: CGFloat = 40
-        let rightMargin: CGFloat = 40
-        
-        // 코사인파를 이용한 부드러운 좌우 움직임
-        let amplitude = (geometry.size.width - leftMargin - rightMargin) / 2
+    // MARK: - 마름모 패턴 (세로로 긴 다이아몬드)
+    private func diamondPosition() -> CGPoint {
         let centerX = geometry.size.width / 2
+        let centerY = geometry.size.height / 2
         
-        // 0 -> 1 -> 0 -> -1 -> 0 순서로 움직임 (오른쪽 -> 중간 -> 왼쪽 -> 중간 -> 오른쪽)
-        let angle = progress * 4 * .pi  // 2번의 완전한 사이클
-        let x = centerX + cos(angle) * amplitude
+        let horizontalRange = (geometry.size.width - 80) * 0.3   // 수평 범위 (좁게)
+        let verticalRange = (geometry.size.height - 160) * 0.45  // 수직 범위 (크게)
         
-        return CGPoint(x: x, y: centerY)
+        // 0~1 progress를 4단계로 나누어 마름모 형태 구성
+        let angle = progress * 4  // 0~4 범위
+        
+        var x: CGFloat
+        var y: CGFloat
+        
+        if angle <= 1 {
+            // 1단계: 중앙 → 위쪽 정점 (0~1)
+            let t = angle
+            x = centerX
+            y = centerY - verticalRange * t
+        } else if angle <= 2 {
+            // 2단계: 위쪽 정점 → 오른쪽 중앙 (1~2)
+            let t = angle - 1
+            x = centerX + horizontalRange * t
+            y = centerY - verticalRange * (1 - t)
+        } else if angle <= 3 {
+            // 3단계: 오른쪽 중앙 → 아래쪽 정점 (2~3)
+            let t = angle - 2
+            x = centerX + horizontalRange * (1 - t)
+            y = centerY + verticalRange * t
+        } else {
+            // 4단계: 아래쪽 정점 → 중앙 (3~4)
+            let t = angle - 3
+            x = centerX - horizontalRange * t
+            y = centerY + verticalRange * (1 - t)
+        }
+        
+        return CGPoint(x: x, y: y)
     }
 } 

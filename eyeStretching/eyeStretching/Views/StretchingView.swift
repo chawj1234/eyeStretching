@@ -15,8 +15,10 @@ struct StretchingView: View {
     
     @State private var currentPattern: EyeStretchingManager.StretchingPattern = .figure8
     @State private var currentCycle = 0
+    @State private var showCompletionCheck = false
+    @State private var isTransitioning = false
     
-    private let totalCycles = 4 // 8자 → 원형 → 상하 → 좌우
+    private let totalCycles = 4 // 8자 → 원형 → 상하 → 마름모
     private let cycleDuration: Double = 20.0 // 각 패턴 20초 (더 긴 시간으로 충분한 운동)
     
     var body: some View {
@@ -33,11 +35,40 @@ struct StretchingView: View {
                 )
                 
                 // 움직이는 포인트
-                MovingPoint(
-                    pattern: currentPattern,
-                    progress: animationEngine.progress,
-                    geometry: geometry
-                )
+                if !isTransitioning {
+                    MovingPoint(
+                        pattern: currentPattern,
+                        progress: animationEngine.progress,
+                        geometry: geometry
+                    )
+                }
+                
+                // 패턴 완료 체크 애니메이션
+                if showCompletionCheck {
+                    VStack(spacing: 20) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.mint.opacity(0.2))
+                                .frame(width: 120, height: 120)
+                                .scaleEffect(showCompletionCheck ? 1.2 : 0.8)
+                                .animation(.spring(response: 0.6, dampingFraction: 0.6), value: showCompletionCheck)
+                            
+                            Image(systemName: "checkmark")
+                                .font(.system(size: 50, weight: .bold))
+                                .foregroundColor(.mint)
+                                .scaleEffect(showCompletionCheck ? 1.0 : 0.3)
+                                .animation(.spring(response: 0.4, dampingFraction: 0.7).delay(0.1), value: showCompletionCheck)
+                        }
+                        
+                        Text("패턴 완료!")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.mint)
+                            .opacity(showCompletionCheck ? 1.0 : 0.0)
+                            .animation(.easeInOut(duration: 0.3).delay(0.2), value: showCompletionCheck)
+                    }
+                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                }
                 
                 // 상단 진행 상황 및 컨트롤
                 VStack {
@@ -130,32 +161,49 @@ struct StretchingView: View {
     }
     
     private func completeCurrentPattern() {
-        currentCycle += 1
+        // 전환 상태로 설정
+        isTransitioning = true
         
-        if currentCycle >= totalCycles {
-            // 모든 패턴 완료
-            animationEngine.stopAnimation()
-            manager.completeStretching()
-        } else {
-            // 다음 패턴으로 순서대로 전환: 8자 → 원형 → 상하 → 좌우
-            switch currentCycle {
-            case 1:
-                currentPattern = .circle
-            case 2:
-                currentPattern = .vertical
-            case 3:
-                currentPattern = .horizontal
-            default:
-                currentPattern = .figure8
+        // 완료 체크 애니메이션 시작
+        withAnimation {
+            showCompletionCheck = true
+        }
+        
+        // 성공 햅틱 피드백
+        let notification = UINotificationFeedbackGenerator()
+        notification.notificationOccurred(.success)
+        
+        // 1.5초 후 다음 단계 진행
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            withAnimation {
+                showCompletionCheck = false
             }
             
-            // 햅틱 피드백
-            let impact = UIImpactFeedbackGenerator(style: .light)
-            impact.impactOccurred()
+            currentCycle += 1
             
-            // 1초 후 다음 패턴 시작 (패턴 간 휴식시간 증가)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                animatePattern()
+            if currentCycle >= totalCycles {
+                // 모든 패턴 완료
+                isTransitioning = false
+                animationEngine.stopAnimation()
+                manager.completeStretching()
+            } else {
+                // 다음 패턴으로 순서대로 전환: 8자 → 원형 → 상하 → 마름모
+                switch currentCycle {
+                case 1:
+                    currentPattern = .circle
+                case 2:
+                    currentPattern = .vertical
+                case 3:
+                    currentPattern = .diamond
+                default:
+                    currentPattern = .figure8
+                }
+                
+                // 0.5초 후 다음 패턴 시작
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    isTransitioning = false
+                    animatePattern()
+                }
             }
         }
     }
