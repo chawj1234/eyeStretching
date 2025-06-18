@@ -217,6 +217,6 @@ copies or substantial portions of the Software.
 ---
 
 > 📧 **문의사항**: [chawj1234@gmail.com]](mailto:chawj1234@gmail.com)  
-> 📱 **LinkedIn**: [차원준](www.linkedin.com/in/wonjuncha
+> 📱 **LinkedIn**: [차원준](www.linkedin.com/in/wonjuncha)
 
-)
+
