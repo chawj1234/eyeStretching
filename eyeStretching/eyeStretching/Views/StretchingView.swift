@@ -13,11 +13,11 @@ struct StretchingView: View {
     @ObservedObject var manager: EyeStretchingManager
     @StateObject private var animationEngine = AnimationEngine()
     
-    @State private var currentPattern: EyeStretchingManager.StretchingPattern = .circle
+    @State private var currentPattern: EyeStretchingManager.StretchingPattern = .figure8
     @State private var currentCycle = 0
     
-    private let totalCycles = 4 // 2회 원형, 2회 8자
-    private let cycleDuration: Double = 15.0 // 각 패턴 15초
+    private let totalCycles = 4 // 8자 → 원형 → 상하 → 좌우
+    private let cycleDuration: Double = 20.0 // 각 패턴 20초 (더 긴 시간으로 충분한 운동)
     
     var body: some View {
         GeometryReader { geometry in
@@ -39,7 +39,7 @@ struct StretchingView: View {
                     geometry: geometry
                 )
                 
-                // 상단 진행 상황
+                // 상단 진행 상황 및 컨트롤
                 VStack {
                     HStack {
                         VStack(alignment: .leading, spacing: 8) {
@@ -48,12 +48,30 @@ struct StretchingView: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.primary)
                             
-                            Text(getPatternName())
+                            Text("\(getPatternName()) • \(manager.animationSpeed.rawValue)")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }
                         
                         Spacer()
+                        
+                        // 속도 조절 버튼
+                        Button(action: {
+                            toggleSpeed()
+                        }) {
+                            HStack(spacing: 6) {
+                                Image(systemName: manager.animationSpeed.icon)
+                                    .font(.caption)
+                                Text(manager.animationSpeed.rawValue)
+                                    .font(.caption)
+                                    .fontWeight(.medium)
+                            }
+                            .foregroundColor(.mint)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(Color.mint.opacity(0.1))
+                            .clipShape(Capsule())
+                        }
                         
                         // 종료 버튼
                         Button(action: {
@@ -97,13 +115,16 @@ struct StretchingView: View {
     
     private func startStretching() {
         currentCycle = 0
-        currentPattern = .circle
+        currentPattern = .figure8  // 8자부터 시작
         animatePattern()
     }
     
     private func animatePattern() {
+        // 속도에 따른 지속시간 조절
+        let adjustedDuration = cycleDuration / manager.animationSpeed.multiplier
+        
         // 고성능 60fps 애니메이션 엔진 사용
-        animationEngine.startAnimation(duration: cycleDuration) {
+        animationEngine.startAnimation(duration: adjustedDuration) {
             completeCurrentPattern()
         }
     }
@@ -116,26 +137,56 @@ struct StretchingView: View {
             animationEngine.stopAnimation()
             manager.completeStretching()
         } else {
-            // 다음 패턴으로 전환
-            currentPattern = (currentCycle % 2 == 0) ? .circle : .figure8
+            // 다음 패턴으로 순서대로 전환: 8자 → 원형 → 상하 → 좌우
+            switch currentCycle {
+            case 1:
+                currentPattern = .circle
+            case 2:
+                currentPattern = .vertical
+            case 3:
+                currentPattern = .horizontal
+            default:
+                currentPattern = .figure8
+            }
             
             // 햅틱 피드백
             let impact = UIImpactFeedbackGenerator(style: .light)
             impact.impactOccurred()
             
-            // 0.5초 후 다음 패턴 시작
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            // 1초 후 다음 패턴 시작 (패턴 간 휴식시간 증가)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 animatePattern()
             }
         }
     }
     
     private func getPatternName() -> String {
-        switch currentPattern {
-        case .circle:
-            return "원형 패턴"
-        case .figure8:
-            return "8자 패턴"
+        return currentPattern.rawValue
+    }
+    
+    private func toggleSpeed() {
+        // 현재 애니메이션 중이라면 일시 정지하고 새로운 속도로 재시작
+        let currentProgress = animationEngine.progress
+        
+        // 속도 변경
+        manager.animationSpeed = (manager.animationSpeed == .normal) ? .fast : .normal
+        manager.saveData() // 설정 저장
+        
+        // 햅틱 피드백
+        let impact = UIImpactFeedbackGenerator(style: .light)
+        impact.impactOccurred()
+        
+        // 현재 애니메이션이 실행 중이라면 새로운 속도로 재시작
+        if animationEngine.isRunning {
+            animationEngine.stopAnimation()
+            
+            // 남은 시간 계산 후 재시작
+            let remainingProgress = 1.0 - currentProgress
+            let adjustedDuration = (cycleDuration / manager.animationSpeed.multiplier) * remainingProgress
+            
+            animationEngine.startAnimation(duration: adjustedDuration) {
+                completeCurrentPattern()
+            }
         }
     }
 } 

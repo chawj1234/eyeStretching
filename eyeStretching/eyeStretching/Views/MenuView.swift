@@ -43,18 +43,55 @@ struct MenuView: View {
                         color: .mint
                     )
                     
-                    if manager.lastCompletedDate != nil {
+                    StatCard(
+                        title: "운동 속도",
+                        value: manager.animationSpeed.rawValue,
+                        unit: "",
+                        color: manager.animationSpeed == .fast ? .orange : .blue
+                    )
+                }
+                
+                if manager.lastCompletedDate != nil {
+                    HStack {
                         StatCard(
                             title: "최근 운동",
                             value: "오늘",
                             unit: "",
-                            color: .orange
+                            color: .green
                         )
                     }
                 }
             }
             
             Spacer()
+            
+            // 속도 설정 버튼
+            HStack(spacing: 12) {
+                ForEach(EyeStretchingManager.AnimationSpeed.allCases, id: \.self) { speed in
+                    Button(action: {
+                        manager.animationSpeed = speed
+                        manager.saveData()
+                        
+                        // 햅틱 피드백
+                        let impact = UIImpactFeedbackGenerator(style: .light)
+                        impact.impactOccurred()
+                    }) {
+                        HStack(spacing: 6) {
+                            Image(systemName: speed.icon)
+                                .font(.caption)
+                            Text(speed.rawValue)
+                                .font(.caption)
+                                .fontWeight(.medium)
+                        }
+                        .foregroundColor(manager.animationSpeed == speed ? .white : .mint)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(manager.animationSpeed == speed ? Color.mint : Color.mint.opacity(0.1))
+                        .clipShape(Capsule())
+                    }
+                }
+            }
+            .padding(.horizontal, 24)
             
             // 시작 버튼
             Button(action: {
@@ -71,15 +108,63 @@ struct MenuView: View {
             }
             .padding(.horizontal, 24)
             
-            // 간단한 안내
-            Text("원형과 8자 패턴을 2분간 따라가세요")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+            // 패턴 안내
+            VStack(spacing: 12) {
+                Text("🎯 운동 패턴")
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                
+                VStack(spacing: 6) {
+                    HStack {
+                        Text("∞")
+                            .font(.title2)
+                            .foregroundColor(.mint)
+                        Text("8자형")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        Spacer()
+                        Text("○")
+                            .font(.title2)
+                            .foregroundColor(.mint)
+                        Text("원형")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    HStack {
+                        Text("↕")
+                            .font(.title2)
+                            .foregroundColor(.mint)
+                        Text("상하형")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        Spacer()
+                        Text("↔")
+                            .font(.title2)
+                            .foregroundColor(.mint)
+                        Text("좌우형")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                }
                 .padding(.horizontal)
+                
+                Text(getExerciseTimeDescription())
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+            }
+            .padding(.horizontal)
             
             Spacer()
         }
         .background(Color(.systemBackground))
+    }
+    
+    private func getExerciseTimeDescription() -> String {
+        let baseTime = 80.0 // 기본 80초 (20초 × 4패턴)
+        let adjustedTime = Int(baseTime / manager.animationSpeed.multiplier)
+        return "총 4가지 패턴으로 \(adjustedTime)초간 큰 눈 운동을 해보세요!"
     }
 }
 

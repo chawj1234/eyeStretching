@@ -13,6 +13,7 @@ class EyeStretchingManager: ObservableObject {
     @Published var currentView: AppView = .menu
     @Published var completedSessions: Int = 0
     @Published var lastCompletedDate: Date?
+    @Published var animationSpeed: AnimationSpeed = .normal
     
     private let userDefaults = UserDefaults.standard
     
@@ -23,9 +24,69 @@ class EyeStretchingManager: ObservableObject {
         case completion
     }
     
-    enum StretchingPattern {
-        case circle
-        case figure8
+    enum StretchingPattern: String, CaseIterable {
+        case figure8 = "8자형"
+        case circle = "원형" 
+        case vertical = "상하형"
+        case horizontal = "좌우형"
+        
+        var description: String {
+            switch self {
+            case .figure8:
+                return "8자를 그리며 눈을 크게 움직여보세요"
+            case .circle:
+                return "큰 원을 그리며 눈을 움직여보세요"
+            case .vertical:
+                return "위아래로 눈을 크게 움직여보세요"
+            case .horizontal:
+                return "좌우로 눈을 크게 움직여보세요"
+            }
+        }
+        
+        var icon: String {
+            switch self {
+            case .figure8:
+                return "infinity"
+            case .circle:
+                return "circle"
+            case .vertical:
+                return "arrow.up.arrow.down"
+            case .horizontal:
+                return "arrow.left.arrow.right"
+            }
+        }
+    }
+    
+    enum AnimationSpeed: String, CaseIterable {
+        case normal = "보통"
+        case fast = "빠르게"
+        
+        var multiplier: Double {
+            switch self {
+            case .normal:
+                return 1.0
+            case .fast:
+                return 1.7
+            }
+        }
+        
+        var icon: String {
+            switch self {
+            case .normal:
+                return "tortoise"
+            case .fast:
+                return "hare"
+            }
+        }
+        
+        var description: String {
+            switch self {
+            case .normal:
+                return "편안한 속도로 운동"
+            case .fast:
+                return "빠른 속도로 운동"
+            }
+        }
     }
     
     init() {
@@ -51,8 +112,9 @@ class EyeStretchingManager: ObservableObject {
         currentView = .menu
     }
     
-    private func saveData() {
+    func saveData() {
         userDefaults.set(completedSessions, forKey: "completedSessions")
+        userDefaults.set(animationSpeed.rawValue, forKey: "animationSpeed")
         if let date = lastCompletedDate {
             userDefaults.set(date, forKey: "lastCompletedDate")
         }
@@ -61,5 +123,12 @@ class EyeStretchingManager: ObservableObject {
     private func loadData() {
         completedSessions = userDefaults.integer(forKey: "completedSessions")
         lastCompletedDate = userDefaults.object(forKey: "lastCompletedDate") as? Date
+        
+        if let speedString = userDefaults.object(forKey: "animationSpeed") as? String,
+           let speed = AnimationSpeed(rawValue: speedString) {
+            animationSpeed = speed
+        } else {
+            animationSpeed = .normal
+        }
     }
 } 
