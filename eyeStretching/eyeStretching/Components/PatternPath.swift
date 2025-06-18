@@ -37,7 +37,7 @@ struct PatternPath: View {
                     style: StrokeStyle(lineWidth: 3, dash: [10, 5])
                 )
                 .frame(
-                    width: (geometry.size.width - 80) * 0.5,  // 세로 8자 (너비 감소)
+                    width: (geometry.size.width - 80) * 1.6,  // 세로 8자 (너비 증가)
                     height: (geometry.size.height - 160) * 0.9  // 세로 8자 (높이 증가)
                 )
                 .position(
@@ -67,7 +67,7 @@ struct PatternPath: View {
                     style: StrokeStyle(lineWidth: 3, dash: [10, 5])
                 )
                 .frame(
-                    width: (geometry.size.width - 80) * 0.6,  // 마름모 너비
+                    width: (geometry.size.width - 80) * 0.9,  // 마름모 너비 (더 넓게)
                     height: (geometry.size.height - 160) * 0.9  // 마름모 높이 (세로로 길게)
                 )
                 .position(
@@ -92,7 +92,7 @@ struct Figure8Path: Shape {
     func path(in rect: CGRect) -> Path {
         Path { path in
             let center = CGPoint(x: rect.midX, y: rect.midY)
-            let radiusX = rect.width * 0.25  // 수평 반경 감소 (세로 8자)
+            let radiusX = rect.width * 0.8  // 수평 반경 증가 (더 넓은 8자)
             let radiusY = rect.height * 0.45  // 수직 반경 대폭 증가
             
             var isFirst = true
@@ -157,7 +157,7 @@ struct DiamondPath: Shape {
         Path { path in
             let centerX = rect.midX
             let centerY = rect.midY
-            let horizontalRange = rect.width * 0.3
+            let horizontalRange = rect.width * 0.45  // 더 넓은 마름모
             let verticalRange = rect.height * 0.45
             
             // 마름모 4개 점

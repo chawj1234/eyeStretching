@@ -64,7 +64,7 @@ struct MovingPoint: View {
     // MARK: - 8자형 패턴 (세로 방향, 더 큰 움직임)
     private func figure8Position() -> CGPoint {
         let t = progress * 2 * .pi
-        let scaleX = (geometry.size.width - 80) * 0.25   // 수평 스케일 감소 (세로 8자)
+        let scaleX = (geometry.size.width - 80) * 1.6   // 수평 스케일 증가 (더 넓은 8자)
         let scaleY = (geometry.size.height - 160) * 0.45  // 수직 스케일 대폭 증가
         let centerX = geometry.size.width / 2
         let centerY = geometry.size.height / 2
@@ -103,7 +103,7 @@ struct MovingPoint: View {
         let centerX = geometry.size.width / 2
         let centerY = geometry.size.height / 2
         
-        let horizontalRange = (geometry.size.width - 80) * 0.3   // 수평 범위 (좁게)
+        let horizontalRange = (geometry.size.width - 80) * 0.45   // 수평 범위 (더 넓게)
         let verticalRange = (geometry.size.height - 160) * 0.45  // 수직 범위 (크게)
         
         // 0~1 progress를 4단계로 나누어 마름모 형태 구성
