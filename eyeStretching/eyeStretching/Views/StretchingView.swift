@@ -165,7 +165,7 @@ struct StretchingView: View {
     }
     
     private func toggleSpeed() {
-        // 현재 애니메이션 중이라면 일시 정지하고 새로운 속도로 재시작
+        // 현재 애니메이션 진행률 저장
         let currentProgress = animationEngine.progress
         
         // 속도 변경
@@ -176,15 +176,13 @@ struct StretchingView: View {
         let impact = UIImpactFeedbackGenerator(style: .light)
         impact.impactOccurred()
         
-        // 현재 애니메이션이 실행 중이라면 새로운 속도로 재시작
+        // 현재 애니메이션이 실행 중이라면 현재 위치에서 새로운 속도로 계속 진행
         if animationEngine.isRunning {
-            animationEngine.stopAnimation()
+            // 전체 사이클 시간 (새로운 속도 적용)
+            let totalDuration = cycleDuration / manager.animationSpeed.multiplier
             
-            // 남은 시간 계산 후 재시작
-            let remainingProgress = 1.0 - currentProgress
-            let adjustedDuration = (cycleDuration / manager.animationSpeed.multiplier) * remainingProgress
-            
-            animationEngine.startAnimation(duration: adjustedDuration) {
+            // 현재 위치에서 새로운 속도로 애니메이션 재개
+            animationEngine.resumeAnimation(from: currentProgress, duration: totalDuration) {
                 completeCurrentPattern()
             }
         }

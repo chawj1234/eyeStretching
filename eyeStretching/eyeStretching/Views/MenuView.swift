@@ -44,9 +44,9 @@ struct MenuView: View {
                     )
                     
                     StatCard(
-                        title: "운동 속도",
+                        title: "현재 설정",
                         value: manager.animationSpeed.rawValue,
-                        unit: "",
+                        unit: "속도",
                         color: manager.animationSpeed == .fast ? .orange : .blue
                     )
                 }
@@ -64,34 +64,6 @@ struct MenuView: View {
             }
             
             Spacer()
-            
-            // 속도 설정 버튼
-            HStack(spacing: 12) {
-                ForEach(EyeStretchingManager.AnimationSpeed.allCases, id: \.self) { speed in
-                    Button(action: {
-                        manager.animationSpeed = speed
-                        manager.saveData()
-                        
-                        // 햅틱 피드백
-                        let impact = UIImpactFeedbackGenerator(style: .light)
-                        impact.impactOccurred()
-                    }) {
-                        HStack(spacing: 6) {
-                            Image(systemName: speed.icon)
-                                .font(.caption)
-                            Text(speed.rawValue)
-                                .font(.caption)
-                                .fontWeight(.medium)
-                        }
-                        .foregroundColor(manager.animationSpeed == speed ? .white : .mint)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .background(manager.animationSpeed == speed ? Color.mint : Color.mint.opacity(0.1))
-                        .clipShape(Capsule())
-                    }
-                }
-            }
-            .padding(.horizontal, 24)
             
             // 시작 버튼
             Button(action: {
@@ -149,7 +121,7 @@ struct MenuView: View {
                 }
                 .padding(.horizontal)
                 
-                Text(getExerciseTimeDescription())
+                Text("총 4가지 패턴으로 큰 눈 운동을 해보세요!")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -161,11 +133,7 @@ struct MenuView: View {
         .background(Color(.systemBackground))
     }
     
-    private func getExerciseTimeDescription() -> String {
-        let baseTime = 80.0 // 기본 80초 (20초 × 4패턴)
-        let adjustedTime = Int(baseTime / manager.animationSpeed.multiplier)
-        return "총 4가지 패턴으로 \(adjustedTime)초간 큰 눈 운동을 해보세요!"
-    }
+
 }
 
 // MARK: - Stat Card Component

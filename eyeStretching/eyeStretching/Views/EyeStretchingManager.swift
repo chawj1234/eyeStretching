@@ -66,16 +66,16 @@ class EyeStretchingManager: ObservableObject {
             case .normal:
                 return 1.0
             case .fast:
-                return 1.7
+                return 2.5
             }
         }
         
         var icon: String {
             switch self {
             case .normal:
-                return "tortoise"
+                return "1.circle"
             case .fast:
-                return "hare"
+                return "2.circle.fill"
             }
         }
         
