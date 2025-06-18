@@ -128,7 +128,7 @@ struct StretchingView: View {
                 VStack {
                     Spacer()
                     
-                    ProgressView(value: Double(currentCycle) + animationEngine.progress, total: Double(totalCycles))
+                    ProgressView(value: getDisplayProgress(), total: Double(totalCycles))
                         .progressViewStyle(LinearProgressViewStyle(tint: .mint))
                         .scaleEffect(x: 1, y: 2)
                         .padding(.horizontal, 40)
@@ -179,16 +179,17 @@ struct StretchingView: View {
                 showCompletionCheck = false
             }
             
-            currentCycle += 1
+            let nextCycle = currentCycle + 1
             
-            if currentCycle >= totalCycles {
+            if nextCycle >= totalCycles {
                 // 모든 패턴 완료
+                currentCycle = nextCycle
                 isTransitioning = false
                 animationEngine.stopAnimation()
                 manager.completeStretching()
             } else {
                 // 다음 패턴으로 순서대로 전환: 8자 → 원형 → 상하 → 마름모
-                switch currentCycle {
+                switch nextCycle {
                 case 1:
                     currentPattern = .circle
                 case 2:
@@ -201,6 +202,7 @@ struct StretchingView: View {
                 
                 // 0.5초 후 다음 패턴 시작
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    currentCycle = nextCycle  // 애니메이션 시작 직전에 사이클 증가
                     isTransitioning = false
                     animatePattern()
                 }
@@ -210,6 +212,16 @@ struct StretchingView: View {
     
     private func getPatternName() -> String {
         return currentPattern.rawValue
+    }
+    
+    private func getDisplayProgress() -> Double {
+        if isTransitioning {
+            // 전환 중일 때는 현재 패턴이 완료된 상태로 표시
+            return Double(currentCycle + 1)
+        } else {
+            // 일반 애니메이션 중일 때는 실시간 진행률 표시
+            return Double(currentCycle) + animationEngine.progress
+        }
     }
     
     private func toggleSpeed() {

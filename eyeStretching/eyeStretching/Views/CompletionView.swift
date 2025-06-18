@@ -38,7 +38,7 @@ struct CompletionView: View {
                     .fontWeight(.medium)
                     .foregroundColor(.primary)
                 
-                Text("눈 스트레칭을 성공적으로 완료했습니다")
+                Text("눈 스트레칭을 성공적으로 완료했습니다.")
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -79,7 +79,6 @@ struct CompletionView: View {
             }
             .padding(.horizontal, 24)
             
-            Spacer()
         }
         .background(Color(.systemBackground))
         .onAppear {

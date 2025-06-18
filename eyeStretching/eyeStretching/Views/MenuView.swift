@@ -8,6 +8,7 @@
 import SwiftUI
 
 // MARK: - Menu View
+
 struct MenuView: View {
     @ObservedObject var manager: EyeStretchingManager
     
@@ -17,9 +18,9 @@ struct MenuView: View {
             
             // 제목 섹션
             VStack(spacing: 20) {
-                Image(systemName: "eye")
-                    .font(.system(size: 50, weight: .light))
-                    .foregroundColor(.mint)
+                Image("eyes")
+                    .resizable()
+                    .frame(width: 100, height: 100)
                 
                 Text("눈 스트레칭")
                     .font(.largeTitle)
@@ -59,6 +60,7 @@ struct MenuView: View {
                         )
                     }
                 }
+                .padding(.horizontal)
             }
             
             Spacer()
@@ -79,21 +81,19 @@ struct MenuView: View {
             .padding(.horizontal, 24)
             
             // 간단한 안내
-            Text("다양한 패턴으로 큰 눈 운동을 해보세요!")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
-            
-            Spacer()
+//            Text("다양한 패턴으로 큰 눈 운동을 해보세요!")
+//                .font(.subheadline)
+//                .foregroundColor(.secondary)
+//                .multilineTextAlignment(.center)
+//                .padding(.horizontal)
+//            
         }
         .background(Color(.systemBackground))
     }
-    
-
 }
 
 // MARK: - Stat Card Component
+
 struct StatCard: View {
     let title: String
     let value: String
@@ -125,4 +125,4 @@ struct StatCard: View {
         .background(Color(.systemGray6))
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
-} 
+}

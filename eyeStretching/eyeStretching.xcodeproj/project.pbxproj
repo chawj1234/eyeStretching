@@ -27,14 +27,6 @@
 		799F5EEB2E01D4B300F498C8 /* eyeStretching.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eyeStretching.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		799F5EF82E01D4B400F498C8 /* eyeStretchingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = eyeStretchingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		799F5F022E01D4B400F498C8 /* eyeStretchingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = eyeStretchingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		80768712B0FD424AA809CA4C /* EyeStretchingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeStretchingManager.swift; sourceTree = "<group>"; };
-		2C6009EE6C5D45FBB1A55A1F /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		CFF7CD32841145EA97995373 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
-		5E626B77A8C5422F97C96851 /* StretchingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchingView.swift; sourceTree = "<group>"; };
-		6406339EFCD5420580E12ACF /* CompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionView.swift; sourceTree = "<group>"; };
-		B2928076AE8F4B208D15EB91 /* MovingPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingPoint.swift; sourceTree = "<group>"; };
-		A72C4A69053949F1A86DBE4A /* PatternPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternPath.swift; sourceTree = "<group>"; };
-		F58D14432CA940B18B255A50 /* AnimationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -413,6 +405,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -441,6 +434,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
