@@ -14,6 +14,9 @@ struct PatternPath: View {
     let geometry: GeometryProxy
     
     var body: some View {
+        // Universal App 지원: 디바이스별 크기 조정
+        let deviceScale = DeviceHelper.animationAreaScale(for: DeviceHelper.currentDevice)
+        
         switch pattern {
         case .circle:
             CirclePath()
@@ -22,8 +25,8 @@ struct PatternPath: View {
                     style: StrokeStyle(lineWidth: 3, dash: [10, 5])
                 )
                 .frame(
-                    width: (geometry.size.width - 80) * 0.9,  // 더 큰 원형
-                    height: (geometry.size.height - 160) * 0.9
+                    width: (geometry.size.width - 80) * 0.9 * deviceScale,
+                    height: (geometry.size.height - 160) * 0.9 * deviceScale
                 )
                 .position(
                     x: geometry.size.width / 2,
@@ -37,8 +40,8 @@ struct PatternPath: View {
                     style: StrokeStyle(lineWidth: 3, dash: [10, 5])
                 )
                 .frame(
-                    width: (geometry.size.width - 80) * 1.6,  // 세로 8자 (너비 증가)
-                    height: (geometry.size.height - 160) * 0.9  // 세로 8자 (높이 증가)
+                    width: (geometry.size.width - 80) * 1.6 * deviceScale,
+                    height: (geometry.size.height - 160) * 0.9 * deviceScale
                 )
                 .position(
                     x: geometry.size.width / 2,
@@ -52,8 +55,8 @@ struct PatternPath: View {
                     style: StrokeStyle(lineWidth: 3, dash: [10, 5])
                 )
                 .frame(
-                    width: 40,  // 선의 두께
-                    height: geometry.size.height - 160  // 전체 높이 활용
+                    width: 40,
+                    height: (geometry.size.height - 160) * deviceScale
                 )
                 .position(
                     x: geometry.size.width / 2,
@@ -67,8 +70,8 @@ struct PatternPath: View {
                     style: StrokeStyle(lineWidth: 3, dash: [10, 5])
                 )
                 .frame(
-                    width: (geometry.size.width - 80) * 0.9,  // 마름모 너비 (더 넓게)
-                    height: (geometry.size.height - 160) * 0.9  // 마름모 높이 (세로로 길게)
+                    width: (geometry.size.width - 80) * 0.9 * deviceScale,
+                    height: (geometry.size.height - 160) * 0.9 * deviceScale
                 )
                 .position(
                     x: geometry.size.width / 2,

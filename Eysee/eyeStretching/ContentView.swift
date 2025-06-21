@@ -25,6 +25,9 @@ struct ContentView: View {
             }
         }
         .animation(.easeInOut(duration: 0.3), value: manager.currentView)
+        // Universal App 지원을 위한 반응형 크기 설정
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemBackground))
     }
 }
 

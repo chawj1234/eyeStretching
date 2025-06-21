@@ -50,9 +50,12 @@ struct MovingPoint: View {
     private func circlePosition() -> CGPoint {
         let angle = progress * 2 * .pi
         
+        // Universal App 지원: 디바이스별 크기 조정
+        let deviceScale = DeviceHelper.animationAreaScale(for: DeviceHelper.currentDevice)
+        
         // PatternPath와 동일한 프레임 크기 계산
-        let frameWidth = (geometry.size.width - 80) * 0.9
-        let frameHeight = (geometry.size.height - 160) * 0.9
+        let frameWidth = (geometry.size.width - 80) * 0.9 * deviceScale
+        let frameHeight = (geometry.size.height - 160) * 0.9 * deviceScale
         
         // 타원의 반지름 (프레임의 절반)
         let radiusX = frameWidth / 2
@@ -71,9 +74,12 @@ struct MovingPoint: View {
     private func figure8Position() -> CGPoint {
         let t = progress * 2 * .pi
         
+        // Universal App 지원: 디바이스별 크기 조정
+        let deviceScale = DeviceHelper.animationAreaScale(for: DeviceHelper.currentDevice)
+        
         // PatternPath와 동일한 프레임 크기 계산
-        let frameWidth = (geometry.size.width - 80) * 1.6
-        let frameHeight = (geometry.size.height - 160) * 0.9
+        let frameWidth = (geometry.size.width - 80) * 1.6 * deviceScale
+        let frameHeight = (geometry.size.height - 160) * 0.9 * deviceScale
         
         // PatternPath와 동일한 반경 계산
         let radiusX = frameWidth * 0.8
@@ -100,8 +106,11 @@ struct MovingPoint: View {
         let topMargin: CGFloat = 80
         let bottomMargin: CGFloat = 80
         
+        // Universal App 지원: 디바이스별 크기 조정
+        let deviceScale = DeviceHelper.animationAreaScale(for: DeviceHelper.currentDevice)
+        
         // 사인파를 이용한 부드러운 상하 움직임
-        let amplitude = (geometry.size.height - topMargin - bottomMargin) / 2
+        let amplitude = (geometry.size.height - topMargin - bottomMargin) / 2 * deviceScale
         let centerY = geometry.size.height / 2
         
         // 0 -> 1 -> 0 -> -1 -> 0 순서로 움직임 (위 -> 중간 -> 아래 -> 중간 -> 위)
@@ -116,9 +125,12 @@ struct MovingPoint: View {
         let centerX = geometry.size.width / 2
         let centerY = geometry.size.height / 2
         
+        // Universal App 지원: 디바이스별 크기 조정
+        let deviceScale = DeviceHelper.animationAreaScale(for: DeviceHelper.currentDevice)
+        
         // PatternPath와 동일한 프레임 크기 계산
-        let frameWidth = (geometry.size.width - 80) * 0.9
-        let frameHeight = (geometry.size.height - 160) * 0.9
+        let frameWidth = (geometry.size.width - 80) * 0.9 * deviceScale
+        let frameHeight = (geometry.size.height - 160) * 0.9 * deviceScale
         
         // PatternPath와 동일한 반경 계산
         let horizontalRange = frameWidth * 0.45

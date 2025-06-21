@@ -78,6 +78,8 @@ struct CompletionView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .padding(.horizontal, 24)
+            // Mac에서만 하단 여백 추가 (Mac Catalyst + Designed for iPad)
+            .padding(.bottom, DeviceHelper.isRunningOnMac ? 20 : 0)
             
         }
         .background(Color(.systemBackground))

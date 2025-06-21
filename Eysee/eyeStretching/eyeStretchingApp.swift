@@ -19,9 +19,15 @@ struct EyeStretchingApp: App {
                     // 다국어 설정 확인 (디버그 모드에서만)
                     #if DEBUG
                     LocalizationHelper.printCurrentLanguageSettings()
+                    DeviceHelper.printDeviceInfo()
                     #endif
                 }
         }
+        // Mac Catalyst에서 윈도우 크기 제한 설정
+        #if targetEnvironment(macCatalyst)
+        .windowStyle(.hiddenTitleBar)
+        .windowResizability(.contentSize)
+        #endif
     }
     
     private func setupAccessibilityFeatures() {

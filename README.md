@@ -118,7 +118,9 @@ Eysee는 이 규칙을 실천할 수 있는 완벽한 도구입니다:
 
 ### 📋 **시스템 요구사항**
 - **iOS**: 15.0 이상
-- **기기**: iPhone 7 이상, iPad (6세대) 이상
+- **iPadOS**: 15.0 이상
+- **macOS**: 12.0 이상 (Mac Catalyst)
+- **기기**: iPhone 7 이상, iPad (6세대) 이상, Mac (Intel/Apple Silicon)
 - **Xcode**: 14.0 이상 (개발 시)
 - **Swift**: 5.0 이상
 
@@ -135,11 +137,40 @@ open Eysee/Eysee.xcodeproj
 ⌘ + R
 ```
 
-### 📱 **지원 기기**
+### 🌐 **Universal App 설정**
+Xcode에서 다음 단계를 따라 Universal App을 활성화하세요:
+
+#### 1️⃣ **iPad 지원 추가**
+1. **프로젝트 설정** → **TARGETS** → **eyeStretching** 선택
+2. **General** 탭 → **Deployment Info** 섹션
+3. **Supported Device Orientations** 에서 iPad 추가
+4. **Device Family**: Universal 선택
+
+#### 2️⃣ **Mac Catalyst 활성화**
+1. **프로젝트 설정** → **TARGETS** → **eyeStretching** 선택
+2. **General** 탭 → **Supported Destinations** 섹션
+3. **Mac Catalyst** 체크박스 활성화
+4. **Minimum Deployments**: macOS 12.0 설정
+
+#### 3️⃣ **빌드 및 테스트**
+```bash
+# iPhone 시뮬레이터에서 실행
+⌘ + R (iPhone 선택)
+
+# iPad 시뮬레이터에서 실행
+⌘ + R (iPad 선택)
+
+# Mac에서 실행 (Mac Catalyst)
+⌘ + R (My Mac (Mac Catalyst) 선택)
+```
+
+### 📱 **지원 기기 (Universal App)**
 - **iPhone**: 모든 크기 (SE, 12 mini ~ 15 Pro Max)
 - **iPad**: 모든 세대 (Air, Pro, mini 포함)
-- **방향**: 세로 모드 최적화 (가로 모드 지원)
+- **Mac**: Intel 및 Apple Silicon (Mac Catalyst)
+- **방향**: 세로 모드 최적화 (iPad 가로 모드 지원)
 - **해상도**: 자동 적응형 레이아웃
+- **입력**: 터치, 마우스, 키보드 지원
 
 ## 🎯 향후 계획
 
