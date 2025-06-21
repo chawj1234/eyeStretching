@@ -72,9 +72,9 @@ class EyeStretchingManager: ObservableObject {
         var multiplier: Double {
             switch self {
             case .normal:
-                return 2.5  // 기존 빠르게 속도를 보통으로
+                return 1.0  // 기본 속도 (1회 사이클)
             case .fast:
-                return 5.0  // 2배 더 빠르게 (기존 2.5배 × 2)
+                return 2.0  // 2배 빠른 속도 (2회 사이클)
             }
         }
         

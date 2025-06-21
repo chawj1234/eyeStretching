@@ -14,6 +14,14 @@ struct MovingPoint: View {
     let progress: Double
     let geometry: GeometryProxy
     
+    // 현재 속도 설정을 가져오기 위해 추가
+    @EnvironmentObject var manager: EyeStretchingManager
+    
+    private var adjustedProgress: Double {
+        // 속도에 따라 progress 조정 (빠르게 모드에서 더 많은 사이클)
+        return progress * manager.animationSpeed.multiplier
+    }
+    
     private var position: CGPoint {
         calculatePosition()
     }
@@ -48,7 +56,7 @@ struct MovingPoint: View {
     
     // MARK: - 원형 패턴 (화면 전체 활용)
     private func circlePosition() -> CGPoint {
-        let angle = progress * 2 * .pi
+        let angle = adjustedProgress * 2 * .pi
         
         // Universal App 지원: 디바이스별 크기 조정
         let deviceScale = DeviceHelper.animationAreaScale(for: DeviceHelper.currentDevice)
@@ -72,7 +80,7 @@ struct MovingPoint: View {
     
     // MARK: - 8자형 패턴 (세로 방향, 더 큰 움직임)
     private func figure8Position() -> CGPoint {
-        let t = progress * 2 * .pi
+        let t = adjustedProgress * 2 * .pi
         
         // Universal App 지원: 디바이스별 크기 조정
         let deviceScale = DeviceHelper.animationAreaScale(for: DeviceHelper.currentDevice)
@@ -114,7 +122,7 @@ struct MovingPoint: View {
         let centerY = geometry.size.height / 2
         
         // 0 -> 1 -> 0 -> -1 -> 0 순서로 움직임 (위 -> 중간 -> 아래 -> 중간 -> 위)
-        let angle = progress * 4 * .pi  // 2번의 완전한 사이클
+        let angle = adjustedProgress * 4 * .pi  // 2번의 완전한 사이클
         let y = centerY - sin(angle) * amplitude
         
         return CGPoint(x: centerX, y: y)
@@ -136,32 +144,34 @@ struct MovingPoint: View {
         let horizontalRange = frameWidth * 0.45
         let verticalRange = frameHeight * 0.45
         
-        // 0~1 progress를 4단계로 나누어 마름모 형태 구성
-        let angle = progress * 4  // 0~4 범위
+        // 위쪽 꼭지점에서 시작하여 시계방향으로 마름모 그리기
+        // 빠른 속도에서 adjustedProgress가 1.0을 넘어갈 수 있으므로 4로 나눈 나머지 사용
+        let rawAngle = adjustedProgress * 4  // 0~8 범위 가능
+        let angle = rawAngle.truncatingRemainder(dividingBy: 4.0)  // 0~4 범위로 제한
         
         var x: CGFloat
         var y: CGFloat
         
         if angle <= 1 {
-            // 1단계: 중앙 → 위쪽 정점 (0~1)
+            // 1단계: 위쪽 정점 → 오른쪽 중앙 (0~1)
             let t = angle
-            x = centerX
-            y = centerY - verticalRange * t
-        } else if angle <= 2 {
-            // 2단계: 위쪽 정점 → 오른쪽 중앙 (1~2)
-            let t = angle - 1
             x = centerX + horizontalRange * t
             y = centerY - verticalRange * (1 - t)
-        } else if angle <= 3 {
-            // 3단계: 오른쪽 중앙 → 아래쪽 정점 (2~3)
-            let t = angle - 2
+        } else if angle <= 2 {
+            // 2단계: 오른쪽 중앙 → 아래쪽 정점 (1~2)
+            let t = angle - 1
             x = centerX + horizontalRange * (1 - t)
             y = centerY + verticalRange * t
-        } else {
-            // 4단계: 아래쪽 정점 → 중앙 (3~4)
-            let t = angle - 3
+        } else if angle <= 3 {
+            // 3단계: 아래쪽 정점 → 왼쪽 중앙 (2~3)
+            let t = angle - 2
             x = centerX - horizontalRange * t
             y = centerY + verticalRange * (1 - t)
+        } else {
+            // 4단계: 왼쪽 중앙 → 위쪽 정점 (3~4)
+            let t = angle - 3
+            x = centerX - horizontalRange * (1 - t)
+            y = centerY - verticalRange * t
         }
         
         return CGPoint(x: x, y: y)

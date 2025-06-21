@@ -19,7 +19,7 @@ struct StretchingView: View {
     @State private var isTransitioning = false
     
     private let totalCycles = 4 // 8자 → 원형 → 상하 → 마름모
-    private let cycleDuration: Double = 20.0 // 각 패턴 20초 (더 긴 시간으로 충분한 운동)
+    private let patternDuration: Double = 8.0 // 각 패턴 8초로 고정 (속도와 무관)
     
     var body: some View {
         GeometryReader { geometry in
@@ -41,6 +41,7 @@ struct StretchingView: View {
                         progress: animationEngine.progress,
                         geometry: geometry
                     )
+                    .environmentObject(manager)
                 }
                 
                 // 패턴 완료 체크 애니메이션
@@ -151,11 +152,11 @@ struct StretchingView: View {
     }
     
     private func animatePattern() {
-        // 속도에 따른 지속시간 조절
-        let adjustedDuration = cycleDuration / manager.animationSpeed.multiplier
+        // 각 패턴은 고정 8초
+        let duration = patternDuration // 8초 고정
         
         // 고성능 60fps 애니메이션 엔진 사용
-        animationEngine.startAnimation(duration: adjustedDuration) {
+        animationEngine.startAnimation(duration: duration) {
             completeCurrentPattern()
         }
     }
@@ -238,11 +239,11 @@ struct StretchingView: View {
         
         // 현재 애니메이션이 실행 중이라면 현재 위치에서 새로운 속도로 계속 진행
         if animationEngine.isRunning {
-            // 전체 사이클 시간 (새로운 속도 적용)
-            let totalDuration = cycleDuration / manager.animationSpeed.multiplier
+            // 고정된 8초 duration과 새로운 속도 배율
+            let duration = patternDuration
             
             // 현재 위치에서 새로운 속도로 애니메이션 재개
-            animationEngine.resumeAnimation(from: currentProgress, duration: totalDuration) {
+            animationEngine.resumeAnimation(from: currentProgress, duration: duration) {
                 completeCurrentPattern()
             }
         }
