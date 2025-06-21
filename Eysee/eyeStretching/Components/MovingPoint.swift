@@ -49,9 +49,15 @@ struct MovingPoint: View {
     // MARK: - 원형 패턴 (화면 전체 활용)
     private func circlePosition() -> CGPoint {
         let angle = progress * 2 * .pi
-        // 화면을 최대한 활용하되 안전 여백 확보
-        let radiusX = (geometry.size.width - 80) * 0.45  // 좌우 여백 40씩
-        let radiusY = (geometry.size.height - 160) * 0.45  // 상하 여백 80씩
+        
+        // PatternPath와 동일한 프레임 크기 계산
+        let frameWidth = (geometry.size.width - 80) * 0.9
+        let frameHeight = (geometry.size.height - 160) * 0.9
+        
+        // 타원의 반지름 (프레임의 절반)
+        let radiusX = frameWidth / 2
+        let radiusY = frameHeight / 2
+        
         let centerX = geometry.size.width / 2
         let centerY = geometry.size.height / 2
         
@@ -64,8 +70,15 @@ struct MovingPoint: View {
     // MARK: - 8자형 패턴 (세로 방향, 더 큰 움직임)
     private func figure8Position() -> CGPoint {
         let t = progress * 2 * .pi
-        let scaleX = (geometry.size.width - 80) * 1.6   // 수평 스케일 증가 (더 넓은 8자)
-        let scaleY = (geometry.size.height - 160) * 0.45  // 수직 스케일 대폭 증가
+        
+        // PatternPath와 동일한 프레임 크기 계산
+        let frameWidth = (geometry.size.width - 80) * 1.6
+        let frameHeight = (geometry.size.height - 160) * 0.9
+        
+        // PatternPath와 동일한 반경 계산
+        let radiusX = frameWidth * 0.8
+        let radiusY = frameHeight * 0.45
+        
         let centerX = geometry.size.width / 2
         let centerY = geometry.size.height / 2
         
@@ -74,9 +87,9 @@ struct MovingPoint: View {
         let cosT = cos(t)
         let denominator = 1 + sinT * sinT
         
-        // x와 y를 바꿔서 세로 8자 형태로 만듦
-        let x = centerX + (scaleX * sinT * cosT) / denominator
-        let y = centerY + (scaleY * cosT) / denominator
+        // PatternPath와 정확히 동일한 계산
+        let x = centerX + (radiusX * sinT * cosT) / denominator
+        let y = centerY + (radiusY * cosT) / denominator
         
         return CGPoint(x: x, y: y)
     }
@@ -103,8 +116,13 @@ struct MovingPoint: View {
         let centerX = geometry.size.width / 2
         let centerY = geometry.size.height / 2
         
-        let horizontalRange = (geometry.size.width - 80) * 0.45   // 수평 범위 (더 넓게)
-        let verticalRange = (geometry.size.height - 160) * 0.45  // 수직 범위 (크게)
+        // PatternPath와 동일한 프레임 크기 계산
+        let frameWidth = (geometry.size.width - 80) * 0.9
+        let frameHeight = (geometry.size.height - 160) * 0.9
+        
+        // PatternPath와 동일한 반경 계산
+        let horizontalRange = frameWidth * 0.45
+        let verticalRange = frameHeight * 0.45
         
         // 0~1 progress를 4단계로 나누어 마름모 형태 구성
         let angle = progress * 4  // 0~4 범위
