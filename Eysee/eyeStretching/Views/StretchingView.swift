@@ -60,7 +60,7 @@ struct StretchingView: View {
                                 .animation(.spring(response: 0.4, dampingFraction: 0.7).delay(0.1), value: showCompletionCheck)
                         }
                         
-                        Text("패턴 완료!")
+                        Text(NSLocalizedString("pattern_complete", comment: ""))
                             .font(.title2)
                             .fontWeight(.semibold)
                             .foregroundColor(.mint)
@@ -79,7 +79,7 @@ struct StretchingView: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.primary)
                             
-                            Text("\(getPatternName()) • \(manager.animationSpeed.rawValue)")
+                            Text("\(getPatternName()) • \(manager.animationSpeed.localizedName)")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }
@@ -93,7 +93,7 @@ struct StretchingView: View {
                             HStack(spacing: 6) {
                                 Image(systemName: manager.animationSpeed.icon)
                                     .font(.caption)
-                                Text(manager.animationSpeed.rawValue)
+                                Text(manager.animationSpeed.localizedName)
                                     .font(.caption)
                                     .fontWeight(.medium)
                             }
@@ -211,7 +211,7 @@ struct StretchingView: View {
     }
     
     private func getPatternName() -> String {
-        return currentPattern.rawValue
+        return currentPattern.localizedName
     }
     
     private func getDisplayProgress() -> Double {

@@ -25,21 +25,25 @@ class EyeStretchingManager: ObservableObject {
     }
     
     enum StretchingPattern: String, CaseIterable {
-        case figure8 = "8자형"
-        case circle = "원형" 
-        case vertical = "상하형"
-        case diamond = "마름모형"
+        case figure8 = "pattern_figure8"
+        case circle = "pattern_circle"
+        case vertical = "pattern_vertical"
+        case diamond = "pattern_diamond"
+        
+        var localizedName: String {
+            return NSLocalizedString(self.rawValue, comment: "")
+        }
         
         var description: String {
             switch self {
             case .figure8:
-                return "세로 8자를 그리며 눈을 크게 움직여보세요"
+                return NSLocalizedString("pattern_figure8_desc", comment: "")
             case .circle:
-                return "큰 원을 그리며 눈을 움직여보세요"
+                return NSLocalizedString("pattern_circle_desc", comment: "")
             case .vertical:
-                return "위아래로 눈을 크게 움직여보세요"
+                return NSLocalizedString("pattern_vertical_desc", comment: "")
             case .diamond:
-                return "세로 마름모를 그리며 눈을 움직여보세요"
+                return NSLocalizedString("pattern_diamond_desc", comment: "")
             }
         }
         
@@ -58,8 +62,12 @@ class EyeStretchingManager: ObservableObject {
     }
     
     enum AnimationSpeed: String, CaseIterable {
-        case normal = "보통"
-        case fast = "빠르게"
+        case normal = "normal_speed"
+        case fast = "fast_speed"
+        
+        var localizedName: String {
+            return NSLocalizedString(self.rawValue, comment: "")
+        }
         
         var multiplier: Double {
             switch self {
@@ -82,9 +90,9 @@ class EyeStretchingManager: ObservableObject {
         var description: String {
             switch self {
             case .normal:
-                return "편안한 속도로 운동"
+                return NSLocalizedString("normal_speed_desc", comment: "")
             case .fast:
-                return "빠른 속도로 운동"
+                return NSLocalizedString("fast_speed_desc", comment: "")
             }
         }
     }

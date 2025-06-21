@@ -1,0 +1,49 @@
+/* 
+   Localizable.strings (English)
+*/
+
+// MARK: - App Name
+"app_name" = "Eye Stretching";
+
+// MARK: - Menu View
+"menu_title" = "Eye Stretching";
+"menu_subtitle" = "Follow the moving dot for natural eye exercises";
+"start_exercise" = "Start Exercise";
+"completed_count" = "Completed";
+"recent_exercise" = "Recent";
+"today" = "Today";
+"recommended_count" = "Recommended";
+"times_per_day" = "times/day";
+"count_unit" = "times";
+
+// MARK: - Countdown View
+"get_ready" = "Get Ready";
+"start" = "Start!";
+"follow_point" = "Follow the moving dot with your eyes";
+
+// MARK: - Stretching View
+"pattern_complete" = "Pattern Complete!";
+"normal_speed" = "Normal";
+"fast_speed" = "Fast";
+
+// MARK: - Completion View
+"exercise_complete" = "Exercise Complete!";
+"exercise_success_message" = "You have successfully completed your eye stretching.";
+"total_completed" = "Total Completed";
+"complete_button" = "Done";
+
+// MARK: - Pattern Names
+"pattern_figure8" = "Figure 8";
+"pattern_circle" = "Circle";
+"pattern_vertical" = "Vertical";
+"pattern_diamond" = "Diamond";
+
+// MARK: - Pattern Descriptions
+"pattern_figure8_desc" = "Draw a vertical figure 8 with your eyes";
+"pattern_circle_desc" = "Draw a large circle with your eyes";
+"pattern_vertical_desc" = "Move your eyes up and down";
+"pattern_diamond_desc" = "Draw a vertical diamond with your eyes";
+
+// MARK: - Speed Descriptions
+"normal_speed_desc" = "Exercise at comfortable speed";
+"fast_speed_desc" = "Exercise at fast speed"; 

@@ -1,0 +1,49 @@
+/* 
+   Localizable.strings (Korean)
+*/
+
+// MARK: - App Name
+"app_name" = "눈 스트레칭";
+
+// MARK: - Menu View
+"menu_title" = "눈 스트레칭";
+"menu_subtitle" = "움직이는 점을 따라 자연스럽게 눈 운동하기";
+"start_exercise" = "운동 시작";
+"completed_count" = "완료 횟수";
+"recent_exercise" = "최근 운동";
+"today" = "오늘";
+"recommended_count" = "권장 횟수";
+"times_per_day" = "회/일";
+"count_unit" = "회";
+
+// MARK: - Countdown View
+"get_ready" = "준비하세요";
+"start" = "시작!";
+"follow_point" = "움직이는 점을 눈으로 따라가세요";
+
+// MARK: - Stretching View
+"pattern_complete" = "패턴 완료!";
+"normal_speed" = "보통";
+"fast_speed" = "빠르게";
+
+// MARK: - Completion View
+"exercise_complete" = "운동 완료!";
+"exercise_success_message" = "눈 스트레칭을 성공적으로 완료했습니다.";
+"total_completed" = "총 완료 횟수";
+"complete_button" = "완료";
+
+// MARK: - Pattern Names
+"pattern_figure8" = "8자형";
+"pattern_circle" = "원형";
+"pattern_vertical" = "상하형";
+"pattern_diamond" = "마름모형";
+
+// MARK: - Pattern Descriptions
+"pattern_figure8_desc" = "세로 8자를 그리며 눈을 크게 움직여보세요";
+"pattern_circle_desc" = "큰 원을 그리며 눈을 움직여보세요";
+"pattern_vertical_desc" = "위아래로 눈을 크게 움직여보세요";
+"pattern_diamond_desc" = "세로 마름모를 그리며 눈을 움직여보세요";
+
+// MARK: - Speed Descriptions
+"normal_speed_desc" = "편안한 속도로 운동";
+"fast_speed_desc" = "빠른 속도로 운동"; 

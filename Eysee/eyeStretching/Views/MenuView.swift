@@ -22,12 +22,12 @@ struct MenuView: View {
                     .resizable()
                     .frame(width: 100, height: 100)
                 
-                Text("눈 스트레칭")
+                Text(NSLocalizedString("menu_title", comment: ""))
                     .font(.largeTitle)
                     .fontWeight(.medium)
                     .foregroundColor(.primary)
                 
-                Text("움직이는 점을 따라 자연스럽게 눈 운동하기")
+                Text(NSLocalizedString("menu_subtitle", comment: ""))
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -38,24 +38,24 @@ struct MenuView: View {
             VStack(spacing: 12) {
                 HStack(spacing: 20) {
                     StatCard(
-                        title: "완료 횟수",
+                        title: NSLocalizedString("completed_count", comment: ""),
                         value: "\(manager.completedSessions)",
-                        unit: "회",
+                        unit: NSLocalizedString("count_unit", comment: ""),
                         color: .mint
                     )
                     
                     if manager.lastCompletedDate != nil {
                         StatCard(
-                            title: "최근 운동",
-                            value: "오늘",
+                            title: NSLocalizedString("recent_exercise", comment: ""),
+                            value: NSLocalizedString("today", comment: ""),
                             unit: "",
                             color: .green
                         )
                     } else {
                         StatCard(
-                            title: "권장 횟수",
+                            title: NSLocalizedString("recommended_count", comment: ""),
                             value: "3-5",
-                            unit: "회/일",
+                            unit: NSLocalizedString("times_per_day", comment: ""),
                             color: .orange
                         )
                     }
@@ -69,7 +69,7 @@ struct MenuView: View {
             Button(action: {
                 manager.startStretching()
             }) {
-                Text("운동 시작")
+                Text(NSLocalizedString("start_exercise", comment: ""))
                     .font(.title3)
                     .fontWeight(.medium)
                     .foregroundColor(.white)

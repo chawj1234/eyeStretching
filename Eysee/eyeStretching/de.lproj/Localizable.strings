@@ -1,0 +1,49 @@
+/* 
+   Localizable.strings (German)
+*/
+
+// MARK: - App Name
+"app_name" = "Augenübungen";
+
+// MARK: - Menu View
+"menu_title" = "Augenübungen";
+"menu_subtitle" = "Folgen Sie dem bewegenden Punkt für natürliche Augenübungen";
+"start_exercise" = "Übung Starten";
+"completed_count" = "Abgeschlossen";
+"recent_exercise" = "Letzte";
+"today" = "Heute";
+"recommended_count" = "Empfohlen";
+"times_per_day" = "mal/Tag";
+"count_unit" = "mal";
+
+// MARK: - Countdown View
+"get_ready" = "Machen Sie sich bereit";
+"start" = "Start!";
+"follow_point" = "Folgen Sie dem bewegenden Punkt mit Ihren Augen";
+
+// MARK: - Stretching View
+"pattern_complete" = "Muster Abgeschlossen!";
+"normal_speed" = "Normal";
+"fast_speed" = "Schnell";
+
+// MARK: - Completion View
+"exercise_complete" = "Übung Abgeschlossen!";
+"exercise_success_message" = "Sie haben Ihre Augenübungen erfolgreich abgeschlossen.";
+"total_completed" = "Insgesamt Abgeschlossen";
+"complete_button" = "Fertig";
+
+// MARK: - Pattern Names
+"pattern_figure8" = "Achter";
+"pattern_circle" = "Kreis";
+"pattern_vertical" = "Vertikal";
+"pattern_diamond" = "Diamant";
+
+// MARK: - Pattern Descriptions
+"pattern_figure8_desc" = "Zeichnen Sie eine vertikale Acht mit Ihren Augen";
+"pattern_circle_desc" = "Zeichnen Sie einen großen Kreis mit Ihren Augen";
+"pattern_vertical_desc" = "Bewegen Sie Ihre Augen auf und ab";
+"pattern_diamond_desc" = "Zeichnen Sie einen vertikalen Diamanten mit Ihren Augen";
+
+// MARK: - Speed Descriptions
+"normal_speed_desc" = "Übung in bequemer Geschwindigkeit";
+"fast_speed_desc" = "Übung in schneller Geschwindigkeit"; 

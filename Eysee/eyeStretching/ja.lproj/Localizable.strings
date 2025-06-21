@@ -1,0 +1,49 @@
+/* 
+   Localizable.strings (Japanese)
+*/
+
+// MARK: - App Name
+"app_name" = "目のストレッチ";
+
+// MARK: - Menu View
+"menu_title" = "目のストレッチ";
+"menu_subtitle" = "動く点を追って自然な目の運動をしましょう";
+"start_exercise" = "運動開始";
+"completed_count" = "完了回数";
+"recent_exercise" = "最新";
+"today" = "今日";
+"recommended_count" = "推奨";
+"times_per_day" = "回/日";
+"count_unit" = "回";
+
+// MARK: - Countdown View
+"get_ready" = "準備してください";
+"start" = "開始！";
+"follow_point" = "動く点を目で追ってください";
+
+// MARK: - Stretching View
+"pattern_complete" = "パターン完了！";
+"normal_speed" = "普通";
+"fast_speed" = "高速";
+
+// MARK: - Completion View
+"exercise_complete" = "運動完了！";
+"exercise_success_message" = "目のストレッチを正常に完了しました。";
+"total_completed" = "合計完了回数";
+"complete_button" = "完了";
+
+// MARK: - Pattern Names
+"pattern_figure8" = "8の字";
+"pattern_circle" = "円形";
+"pattern_vertical" = "上下";
+"pattern_diamond" = "ダイヤモンド";
+
+// MARK: - Pattern Descriptions
+"pattern_figure8_desc" = "縦の8の字を描くように目を動かしてください";
+"pattern_circle_desc" = "大きな円を描くように目を動かしてください";
+"pattern_vertical_desc" = "上下に目を大きく動かしてください";
+"pattern_diamond_desc" = "縦のダイヤモンドを描くように目を動かしてください";
+
+// MARK: - Speed Descriptions
+"normal_speed_desc" = "快適な速度で運動";
+"fast_speed_desc" = "高速で運動"; 

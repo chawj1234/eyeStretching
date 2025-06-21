@@ -16,6 +16,10 @@ struct EyeStretchingApp: App {
                 .onAppear {
                     // 눈 추적 권한 및 설정 안내
                     setupAccessibilityFeatures()
+                    // 다국어 설정 확인 (디버그 모드에서만)
+                    #if DEBUG
+                    LocalizationHelper.printCurrentLanguageSettings()
+                    #endif
                 }
         }
     }

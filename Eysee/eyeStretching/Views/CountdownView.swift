@@ -18,7 +18,7 @@ struct CountdownView: View {
         VStack(spacing: 60) {
             Spacer()
             
-            Text("준비하세요")
+            Text(NSLocalizedString("get_ready", comment: ""))
                 .font(.largeTitle)
                 .fontWeight(.medium)
                 .foregroundColor(.primary)
@@ -29,13 +29,13 @@ struct CountdownView: View {
                     .fill(Color.mint.opacity(0.1))
                     .frame(width: 160, height: 160)
                 
-                Text(countdown > 0 ? "\(countdown)" : "시작!")
+                Text(countdown > 0 ? "\(countdown)" : NSLocalizedString("start", comment: ""))
                     .font(.system(size: 60, weight: .medium))
                     .foregroundColor(.mint)
                     .scaleEffect(scale)
             }
             
-            Text("움직이는 점을 눈으로 따라가세요")
+            Text(NSLocalizedString("follow_point", comment: ""))
                 .font(.title3)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)

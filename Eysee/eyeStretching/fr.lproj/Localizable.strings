@@ -1,0 +1,49 @@
+/* 
+   Localizable.strings (French)
+*/
+
+// MARK: - App Name
+"app_name" = "Exercices Oculaires";
+
+// MARK: - Menu View
+"menu_title" = "Exercices Oculaires";
+"menu_subtitle" = "Suivez le point en mouvement pour des exercices oculaires naturels";
+"start_exercise" = "Commencer l'Exercice";
+"completed_count" = "Terminé";
+"recent_exercise" = "Récent";
+"today" = "Aujourd'hui";
+"recommended_count" = "Recommandé";
+"times_per_day" = "fois/jour";
+"count_unit" = "fois";
+
+// MARK: - Countdown View
+"get_ready" = "Préparez-vous";
+"start" = "Commencer !";
+"follow_point" = "Suivez le point en mouvement avec vos yeux";
+
+// MARK: - Stretching View
+"pattern_complete" = "Motif Terminé !";
+"normal_speed" = "Normal";
+"fast_speed" = "Rapide";
+
+// MARK: - Completion View
+"exercise_complete" = "Exercice Terminé !";
+"exercise_success_message" = "Vous avez terminé avec succès vos exercices oculaires.";
+"total_completed" = "Total Terminé";
+"complete_button" = "Terminer";
+
+// MARK: - Pattern Names
+"pattern_figure8" = "Figure 8";
+"pattern_circle" = "Cercle";
+"pattern_vertical" = "Vertical";
+"pattern_diamond" = "Diamant";
+
+// MARK: - Pattern Descriptions
+"pattern_figure8_desc" = "Dessinez une figure 8 verticale avec vos yeux";
+"pattern_circle_desc" = "Dessinez un grand cercle avec vos yeux";
+"pattern_vertical_desc" = "Bougez vos yeux de haut en bas";
+"pattern_diamond_desc" = "Dessinez un diamant vertical avec vos yeux";
+
+// MARK: - Speed Descriptions
+"normal_speed_desc" = "Exercice à vitesse confortable";
+"fast_speed_desc" = "Exercice à vitesse rapide"; 

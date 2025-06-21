@@ -33,12 +33,12 @@ struct CompletionView: View {
             
             // 완료 메시지
             VStack(spacing: 16) {
-                Text("운동 완료!")
+                Text(NSLocalizedString("exercise_complete", comment: ""))
                     .font(.largeTitle)
                     .fontWeight(.medium)
                     .foregroundColor(.primary)
                 
-                Text("눈 스트레칭을 성공적으로 완료했습니다.")
+                Text(NSLocalizedString("exercise_success_message", comment: ""))
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -47,11 +47,11 @@ struct CompletionView: View {
             
             // 통계
             VStack(spacing: 12) {
-                Text("총 완료 횟수")
+                Text(NSLocalizedString("total_completed", comment: ""))
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                 
-                Text("\(manager.completedSessions)회")
+                Text("\(manager.completedSessions)\(NSLocalizedString("count_unit", comment: ""))")
                     .font(.title)
                     .fontWeight(.semibold)
                     .foregroundColor(.mint)
@@ -68,7 +68,7 @@ struct CompletionView: View {
             Button(action: {
                 manager.returnToMenu()
             }) {
-                Text("완료")
+                Text(NSLocalizedString("complete_button", comment: ""))
                     .font(.title3)
                     .fontWeight(.medium)
                     .foregroundColor(.white)
